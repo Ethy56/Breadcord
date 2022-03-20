@@ -1,0 +1,27 @@
+{
+  "name": "breadcord",
+  "version": "2.0.1",
+  "description": "Breadcord is a Discord.JS Framework which provides easy use of DJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ethy56/Breadcord.git"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "bot",
+    "client",
+    "bread",
+    "breadcord"
+  ],
+  "author": "Ethy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ethy56/Breadcord/issues"
+  },
+  "homepage": "https://github.com/Ethy56/Breadcord#readme"
+}
