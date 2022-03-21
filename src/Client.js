@@ -153,9 +153,8 @@ module.exports = class Client extends Discord.Client {
             }
         } else {
             if (!this.loaders) {
-                this.loaders = {
-                    type: new Collection(options)
-                }
+                this.loaders = {};
+                this.loaders[type] = new Collection(options);
                 if (options.load) {
                     this.loaders[type].load().catch(e=>{
                         throw (new BreadError(e).error);
