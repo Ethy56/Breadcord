@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const chalk = require("chalk");
 const Collection = require("./Collection.js");
 const SlashCollection = require("./SlashCollection.js");
 const BreadError = require("./BreadError.js");
@@ -8,7 +7,7 @@ const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 module.exports = class Client extends Discord.Client {
     constructor({intents, token, prefix = "", defaults = {}, clientid = 0}) {
-        console.log(chalk.green("Running Breadcord | Server: https://discord.gg/BTNvpyzHYq | GitHub: https://github.com/Ethy56/Breadcord"));
+        console.log("Running Breadcord | Server: https://discord.gg/BTNvpyzHYq | GitHub: https://github.com/Ethy56/Breadcord");
         super({intents});
         this.prefix = prefix;
         this.intents = intents;
