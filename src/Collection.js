@@ -5,7 +5,7 @@ const Command = require("./Command.js");
 module.exports = class Collection extends Map {
     constructor({path, filetype = ".js", isCommands = false, client}) {
         super();
-        this.path = path;
+        this.path = path.replace(/\\/g, "/");
         this.isCommands = isCommands;
         this.filetype = filetype.toLocaleLowerCase();
     }
@@ -32,12 +32,12 @@ module.exports = class Collection extends Map {
     }
     unload() {
         this.forEach(file=>{
-            delete require.cache[require.resolve(this.path + "/" + file + this.filetype)];
+            delete require.cache[require.resolve(this.path + "/" + file.name + this.filetype)];
         })
         this.clear();
     }
-    async reload() {
-        await this.unload();
+    reload() {
+        this.unload();
         this.load();
     }
 }
