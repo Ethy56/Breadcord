@@ -1,43 +1,41 @@
-const fs = require("fs");
 const BreadError = require("./BreadError.js");
-const Command = require("./Command.js");
 
 module.exports = class Collection extends Map {
-    constructor({path, filetype = ".js", isCommands = false, client}) {
+    constructor(items = []) {
         super();
-        this.path = path.replace(/\\/g, "/");
-        this.isCommands = isCommands;
-        this.filetype = filetype.toLocaleLowerCase();
+        this.items = [];
+        if (items.length !== 0) {
+            items.forEach(item=>{
+                this.addItem(item);
+            });
+        }
     }
-    setPath(path) {
-        this.path = path;
+    setItems(items = []) {
+        if (items.length !== 0) {
+            this.clear();
+            items.forEach(item=>{
+                this.addItem(item);
+            });
+        }
     }
-    load() {
-        return new Promise((resolve, reject) => {
-            try {
-                var files = fs.readdirSync(this.path).filter(file => file.toLocaleLowerCase().endsWith(this.filetype));
-                files.forEach(file=>{
-                    var requiredFile = require(this.path + "/" + file);
-                    if (this.isCommands) {
-                        requiredFile = new Command(requiredFile);
-                    }
-                    this.set(file.substr(0,file.length-this.filetype.length), requiredFile);
-                });
-                resolve(this);
-            } catch(err) {
-                console.error(err);
-                reject((new BreadError(err)).error);
-            }
-        })
+    addItem(item = {name: null, callback: null}) {
+        if (!item.name) {
+            throw (new BreadError("No name provided for adding Item to Collection `" + this.name + "`")).error;
+        }
+        if (!item.callback) {
+            throw (new BreadError("No callback provided for adding Item to Collection `" + this.name + "`")).error;
+        }
+        this.set(item.name, item);
     }
-    unload() {
-        this.forEach(file=>{
-            delete require.cache[require.resolve(this.path + "/" + file.name + this.filetype)];
-        })
-        this.clear();
+    removeItem(name) {
+        if (!name) {
+            throw (new BreadError("No name provided for removing Item from Collection `" + this.name + "`")).error;
+        }
+        if (this.get(name)) {
+            this.delete(name);
+        }
     }
-    reload() {
-        this.unload();
-        this.load();
+    array() {
+        return this.items;
     }
-}
+};

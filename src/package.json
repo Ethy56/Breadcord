@@ -1,6 +1,6 @@
 {
   "name": "breadcord",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Breadcord is a Discord.JS Framework which provides easy use of DJS.",
   "main": "index.js",
   "scripts": {
