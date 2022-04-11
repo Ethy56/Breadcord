@@ -230,9 +230,9 @@ module.exports = class Client extends Discord.Client {
             throw (new BreadError("No type provided for adding Item to Collection")).error;
         }
         if (!this.collections.events) {
-            this.collections.events = new Collection([item]);
+            this.collections.events = new Collection([event]);
         } else {
-            this.collections.events.addItem(item);
+            this.collections.events.addItem(event);
         }
         this.emit("eventAdd", event);
     }
